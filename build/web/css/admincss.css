@@ -7,9 +7,65 @@ and open the template in the editor.
     Created on : Mar 31, 2023, 8:22:58 AM
     Author     : toan0
 */
-
+@import url("https://fonts.googleapis.com/css2?family=Climate+Crisis&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Climate+Crisis&family=Noto+Sans+Lepcha&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Climate+Crisis&family=IBM+Plex+Mono:wght@400;600&family=Noto+Sans+Lepcha&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Climate+Crisis&family=IBM+Plex+Mono:wght@400;600&family=Noto+Sans+Lepcha&family=Poppins:wght@400;500;600;800&display=swap");
 h1{
     padding: 2rem;
     background: #ddd;
+    font-family:"Poppins", sans-serif;;
+
+}
+.styled-table {
+    border-collapse: collapse;
+    margin: 3rem 0;
+    font-size: 0.9em;
     font-family: sans-serif;
+    width: 100%;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    height: 30%;
+}
+
+.styled-table thead tr {
+    background-color: #009879;
+    color: #fff;
+    text-align: left;
+
+}
+
+.styled-table th{
+    font-size: 2rem;
+    font-weight: bold;
+    padding: 1rem 2rem;
+    text-align: left;
+    font-size: 1.5rem;
+}
+
+.styled-table td {
+    padding: 1rem 2rem;
+    font-size: 1.5rem;
+    text-align: left;
+}
+
+
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+.styled-table tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+}
+button{
+  
 }

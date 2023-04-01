@@ -1,0 +1,132 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 31, 2023, 3:42:19 PM
+    Author     : toan0
+*/
+
+html {
+    font-size: 62.5%;
+    font-family: 'Poppins', sans-serif;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.75)), url('https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80');
+    background-size: cover;
+
+}
+
+
+
+
+.container {
+    position: relative;
+    margin-top: 15rem;
+    /*max-width: 600px;*/
+    width: 50%;
+    padding: 2rem;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    margin-left:25%; 
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 5rem;
+
+}
+.box {
+    width: 100%;
+    margin-bottom: 1.5rem;
+    background-color: #fff;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
+    border-radius: 1rem;
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #f1f1f1;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+}
+.header h2 {
+    font-size: 2rem;
+}
+.actions button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+.content {
+    padding: 1rem;
+}
+.form-group {
+    margin-bottom: 1rem;
+}
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+}
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid #ccc;
+    font-size: 1.5rem;
+}
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #007bff;
+}
+.save-button {
+    padding: 1rem;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    margin-top: 4rem;
+}
+.save-button:hover {
+    background-color: #0069d9;
+}
+.edit-button {
+    padding: 0.5rem;
+    border: none;
+    cursor: pointer;
+    font-size: 2rem;
+}
+.edit-button:hover {
+    color: #007bff;
+}
+.active {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.signup_link{
+   margin-left: 88%;
+/*   margin-bottom: 75%;*/
+
+}
+.signup_link{
+    color: #adadad;
+}
+.signup_link a{
+    text-decoration: none;
+    color: #2691d9;
+    font-size: 2rem;
+}

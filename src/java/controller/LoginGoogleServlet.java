@@ -5,8 +5,9 @@
  */
 package controller;
 
-import dao.UserDAO;
-import dto.User;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import dto.UserGoogle;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,17 +15,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import logingooglehandler.Constants;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.fluent.Form;
+import org.apache.http.client.fluent.Request;
 
 /**
  *
  * @author toan0
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "LoginGoogleServlet", urlPatterns = {"/LoginGoogleServlet"})
+public class LoginGoogleServlet extends HttpServlet {
 
-    private final String ERROR_PAGE = "login.jsp";
-    private final String ADMIN_PAGE = "admin.jsp";
-    private final String USER_PAGE = "user.jsp";
+    private final String USERPAGE = "user.jsp";
+    private final String ERRORPAGE = "login.jsp";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,33 +42,48 @@ public class LoginServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
-        String url = ERROR_PAGE;
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
+        System.out.println(request.getParameter("code")); //Code sẽ được gửi về SERVER của GOOGLE
+        String code = request.getParameter("code");
+        String accessToken = getToken(code);
+        UserGoogle user = getUserInfo(accessToken);
+        System.out.println(user);
+        String url = ERRORPAGE;
         try {
             HttpSession session = request.getSession();
-
-            User user = UserDAO.checkLogin(username, password);
-            if (user != null && user.getRoleID().equals("AD") ) {
+            if (user != null) {
                 session.setAttribute("user", user);
-                url = ADMIN_PAGE;
-            } else if (user != null && user.getRoleID().equals("US")) {
-                url = USER_PAGE;
-            } else {
-                //SAU NÀY ChƠI JAVASCRIPT
-                session.setAttribute("error", "INVALID USERNAME OR PASSWORD");
+                url = USERPAGE ;
             }
 
         } catch (Exception e) {
-            log("CAN NOT LOGIN");
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
 
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    public static String getToken(String code) throws ClientProtocolException, IOException {
+        // call api to get token
+        String response = Request.Post(Constants.GOOGLE_LINK_GET_TOKEN)
+                .bodyForm(Form.form().add("client_id", Constants.GOOGLE_CLIENT_ID)
+                        .add("client_secret", Constants.GOOGLE_CLIENT_SECRET)
+                        .add("redirect_uri", Constants.GOOGLE_REDIRECT_URI).add("code", code)
+                        .add("grant_type", Constants.GOOGLE_GRANT_TYPE).build())
+                .execute().returnContent().asString();
+
+        JsonObject jobj = new Gson().fromJson(response, JsonObject.class);
+        String accessToken = jobj.get("access_token").toString().replaceAll("\"", "");
+        return accessToken;
+    }
+
+    public static UserGoogle getUserInfo(final String accessToken) throws ClientProtocolException, IOException {
+        String link = Constants.GOOGLE_LINK_GET_USER_INFO + accessToken;
+        String response = Request.Get(link).execute().returnContent().asString();
+        UserGoogle googlePojo = new Gson().fromJson(response, UserGoogle.class);
+        return googlePojo;
+    }
+
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

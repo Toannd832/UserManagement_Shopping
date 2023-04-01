@@ -7,6 +7,11 @@ and open the template in the editor.
     Created on : Mar 31, 2023, 12:00:26 AM
     Author     : toan0
 */
+@import url("https://fonts.googleapis.com/css2?family=Climate+Crisis&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Climate+Crisis&family=Noto+Sans+Lepcha&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Climate+Crisis&family=IBM+Plex+Mono:wght@400;600&family=Noto+Sans+Lepcha&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Climate+Crisis&family=IBM+Plex+Mono:wght@400;600&family=Noto+Sans+Lepcha&family=Poppins:wght@400;500;600;800&display=swap");
+
 
             *{
                 margin: 0;
@@ -148,6 +153,7 @@ and open the template in the editor.
             }
             .login-with-google .right a{
                 margin-top: 1rem;
+                margin-left: 10rem;
                 width: 15rem;
                 color: rgb(253, 69, 69);
                 background-color: white;
@@ -161,4 +167,8 @@ and open the template in the editor.
             .login-with-google .right a:hover{
                 background-color: rgb(168, 168, 168);
             }
-  
+            h3{
+                font-family: 'Poppins', serif;     
+            }
+            
+

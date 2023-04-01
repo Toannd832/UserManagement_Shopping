@@ -1,11 +1,13 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 package controller;
 
+import dao.UserDAO;
+import dto.User;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,16 +18,11 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author toan0
  */
-@WebServlet(name = "MainController", urlPatterns = {"/MainController"})
-public class MainController extends HttpServlet {
-private final String LOGIN_CONTROLLER = "LoginServlet";
-private final String LOGINGOOGLE_CONTROLLER = "LoginGoogleServlet";
-private final String LOGOUT_CONTROLLER = "LogoutServlet";
-private final String SEARCH_CONTROLLER = "SearchServlet";
-private final String DELETE_CONTROLLER = "DeleteServlet";
-private final String UPDATE_CONTROLLER = "UpdateServlet";   
-private final String CREATE_CONTROLLER = "CreateServlet";   
-private final String ERROR_PAGE = "login.jsp";
+@WebServlet(name = "UpdateServlet", urlPatterns = {"/UpdateServlet"})
+public class UpdateServlet extends HttpServlet {
+
+    private final String SUCCESS = "SearchServlet";
+    private final String FAIL = "SearchServlet";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,36 +33,25 @@ private final String ERROR_PAGE = "login.jsp";
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String action = request.getParameter("action");
-        String url = ERROR_PAGE;
+        String url = FAIL;
+        String userID = request.getParameter("userID");
+        String fullName = request.getParameter("fullName");
+        String password = request.getParameter("password");
+        String roleID = request.getParameter("roleID");
+        String searchValue = request.getParameter("search");
+        User user;
         try {
-            if(action.equals("Login")){
-             url = LOGIN_CONTROLLER;   
-            }else if(action.equals("Login Google")){
-                url = LOGINGOOGLE_CONTROLLER;
+            user = new User(userID, fullName, password, roleID);
+            boolean check = UserDAO.Update(user);
+            if(check){
+                url = SUCCESS;
             }
-            
-            else if(action.equals("Logout")){
-                url = LOGOUT_CONTROLLER;
-            }
-            else if(action.equals("Search")){
-                url = SEARCH_CONTROLLER;
-            }else if(action.equals("Delete")){
-                url = DELETE_CONTROLLER;
-            }
-            else if(action.equals("Update")){
-                url = UPDATE_CONTROLLER;
-            }else if(action.equals("Create")){
-                url = CREATE_CONTROLLER;
-            }
+            request.setAttribute("search", searchValue);
         } catch (Exception e) {
-            log("SORRY SOMETHING WENT WRONG!!!");
-            e.printStackTrace();
-        }finally{
+        } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
     }

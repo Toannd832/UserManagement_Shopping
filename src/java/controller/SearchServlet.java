@@ -36,9 +36,14 @@ public class SearchServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ADMIN_PAGE;
+     
         String searchValue = request.getParameter("search");
         try {
-         request.setAttribute("list",  UserDAO.findById(searchValue));
+            if(searchValue!=null){
+                 request.setAttribute("list",  UserDAO.findById(searchValue));
+                 request.setAttribute("search",  searchValue);
+            }
+        
         } catch (Exception e) {
         } finally {
             request.getRequestDispatcher(url).forward(request, response);

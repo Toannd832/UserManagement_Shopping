@@ -5,7 +5,9 @@
  */
 package controller;
 
+import dao.UserDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,16 +18,11 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author toan0
  */
-@WebServlet(name = "MainController", urlPatterns = {"/MainController"})
-public class MainController extends HttpServlet {
-private final String LOGIN_CONTROLLER = "LoginServlet";
-private final String LOGINGOOGLE_CONTROLLER = "LoginGoogleServlet";
-private final String LOGOUT_CONTROLLER = "LogoutServlet";
-private final String SEARCH_CONTROLLER = "SearchServlet";
-private final String DELETE_CONTROLLER = "DeleteServlet";
-private final String UPDATE_CONTROLLER = "UpdateServlet";   
-private final String CREATE_CONTROLLER = "CreateServlet";   
-private final String ERROR_PAGE = "login.jsp";
+@WebServlet(name = "DeleteServlet", urlPatterns = {"/DeleteServlet"})
+public class DeleteServlet extends HttpServlet {
+
+    private final String SUCCESS = "SearchServlet";
+    private final String FAIL = "SearchServlet";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,35 +33,17 @@ private final String ERROR_PAGE = "login.jsp";
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String action = request.getParameter("action");
-        String url = ERROR_PAGE;
+        String url = FAIL;
         try {
-            if(action.equals("Login")){
-             url = LOGIN_CONTROLLER;   
-            }else if(action.equals("Login Google")){
-                url = LOGINGOOGLE_CONTROLLER;
-            }
-            
-            else if(action.equals("Logout")){
-                url = LOGOUT_CONTROLLER;
-            }
-            else if(action.equals("Search")){
-                url = SEARCH_CONTROLLER;
-            }else if(action.equals("Delete")){
-                url = DELETE_CONTROLLER;
-            }
-            else if(action.equals("Update")){
-                url = UPDATE_CONTROLLER;
-            }else if(action.equals("Create")){
-                url = CREATE_CONTROLLER;
+            String userID = request.getParameter("userID");
+            boolean check = UserDAO.Delete(userID);
+            if(check){
+               url = SUCCESS;
             }
         } catch (Exception e) {
-            log("SORRY SOMETHING WENT WRONG!!!");
-            e.printStackTrace();
         }finally{
             request.getRequestDispatcher(url).forward(request, response);
         }
