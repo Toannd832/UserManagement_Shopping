@@ -42,18 +42,14 @@
                 </div>
                 <div class="login-with-google">
                     <div class="left"><h3>Login G-mail FOR USER </h3>
-                          <a data-turbo="false" id="gplus-signin" rel="nofollow" class="d-flex justify-content-center" data-method="post" href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile&redirect_uri=http://localhost:8080/UserManagerment/LoginGoogleServlet&response_type=code
+                        <a data-turbo="false" id="gplus-signin" rel="nofollow" class="d-flex justify-content-center" data-method="post" href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile&redirect_uri=http://localhost:8080/UserManagerment/LoginGoogleServlet&response_type=code
                            &client_id=59079633289-dce6j1nu4mev40qe097ih8eh2o0j30eb.apps.googleusercontent.com&approval_prompt=force"><i class="fa-brands fa-google-plus-g"></i></a></div>
 
-                           <div class="right"><h3 style="margin-left: 9rem">Login G-mail FOR ADMIN</h3>
+                    <div class="right"><h3 style="margin-left: 9rem">Login G-mail FOR ADMIN</h3>
                         <a href="#"><i class="fa-brands fa-google-plus-g"></i></a></div>
                     <div class="sign-in-button gplus button">
-                     
-                           
                     </div>
                     </form>
-
-
 
                 </div>
 

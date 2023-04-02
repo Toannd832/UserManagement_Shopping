@@ -20,9 +20,12 @@ import java.util.List;
 public class UserDAO {
 
     private static final String SELECT_USER = "SELECT userID,fullName,password, roleID FROM [dbo].[tblUsers] WHERE userID=? and password=?";
-    private static final String SELECT_USER_BYID = "SELECT userID,fullName,password, roleID FROM [dbo].[tblUsers] WHERE userID LIKE ?";
+    private static final String SELECT_USER_CHECKDUPPLICATE = "SELECT userID FROM [dbo].[tblUsers] WHERE userID=?";
+    private static final String SELECT_USERS_BYID = "SELECT userID,fullName,password, roleID FROM [dbo].[tblUsers] WHERE userID LIKE ?";
+    private static final String SELECT_USER_BYID = "SELECT userID,fullName,password, roleID FROM [dbo].[tblUsers] WHERE userID=?";
     private static final String DELETE_USER = "DELETE [dbo].[tblUsers] WHERE userID=?";
     private static final String UPDATE_USER = "UPDATE [dbo].[tblUsers] SET fullName=?, password=?, roleID=? WHERE userID=?";
+    private static final String CREATE_USER = "INSERT INTO [dbo].[tblUsers](fullName,password,roleID,userID) VALUES(?,?,?,?)";
 
     public static User checkLogin(String userID, String password) throws SQLException {
         Connection conn = null;
@@ -66,7 +69,49 @@ public class UserDAO {
 
         return null;
     }
+ public static User findAUserByID(String userID) throws SQLException {
+       
+        Connection conn = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
 
+        User user = null;
+        try {
+            //1. OPEN CONNECTION
+            conn = utils.DBUtils.makeConnection();
+            //2. CREATE SQL Query by STRING
+            String sql = SELECT_USER_BYID;
+            //3. SET SQL STATEMENT
+            pst = conn.prepareStatement(sql);
+           pst.setString(1,  userID);
+
+            //4. EXCUTE QUERY
+            rs = pst.executeQuery();
+            //5.PROCESS
+            if (rs != null) {
+                while (rs.next()) {
+
+               
+                    String fullname = rs.getString("fullName");
+                    String password = rs.getString("password");
+                    String roleID = rs.getString("roleID");
+                    new User(userID, fullname, password, roleID);
+                }
+            }
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (pst != null) {
+                pst.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return user;
+    }
     public static List<User> findById(String searchValue) throws SQLException {
         List<User> users = new ArrayList<>();
         Connection conn = null;
@@ -78,7 +123,7 @@ public class UserDAO {
             //1. OPEN CONNECTION
             conn = utils.DBUtils.makeConnection();
             //2. CREATE SQL Query by STRING
-            String sql = SELECT_USER_BYID;
+            String sql = SELECT_USERS_BYID;
             //3. SET SQL STATEMENT
             pst = conn.prepareStatement(sql);
             pst.setString(1, "%" + searchValue + "%");
@@ -110,7 +155,7 @@ public class UserDAO {
         return users;
     }
 
-      public static boolean Delete(String userID) throws SQLException {
+    public static boolean Delete(String userID) throws SQLException {
         Connection conn = null;
         PreparedStatement pst = null;
         boolean result = false;
@@ -122,7 +167,6 @@ public class UserDAO {
             //3. SET SQL STATEMENT
             pst = conn.prepareStatement(sql);
 
-          
             pst.setString(1, userID);
             //4. EXCUTE QUERY AND 5.PROCESS
             result = pst.executeUpdate() > 0;
@@ -139,7 +183,7 @@ public class UserDAO {
         }
         return result;
     }
-    
+
     public static boolean Update(User user) throws SQLException {
         Connection conn = null;
         PreparedStatement pst = null;
@@ -149,6 +193,77 @@ public class UserDAO {
             conn = utils.DBUtils.makeConnection();
             //2. CREATE SQL Query by STRING
             String sql = UPDATE_USER;
+            //3. SET SQL STATEMENT
+            pst = conn.prepareStatement(sql);
+
+            pst.setString(1, user.getFullName());
+            pst.setString(2, user.getPassword());
+            pst.setString(3, user.getRoleID());
+            pst.setString(4, user.getUserID());
+            //4. EXCUTE QUERY AND 5.PROCESS
+            result = pst.executeUpdate() > 0;
+
+        } catch (Exception e) {
+        } finally {
+
+            if (pst != null) {
+                pst.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return result;
+    }
+
+    public static boolean checkDupplicate(String userID) throws SQLException {
+        Connection conn = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+
+        User user = null;
+
+        try {
+            //1. OPEN CONNECTION
+            conn = utils.DBUtils.makeConnection();
+            //2. CREATE SQL Query by STRING
+            String sql = SELECT_USER_CHECKDUPPLICATE;
+            //3. SET SQL STATEMENT
+            pst = conn.prepareStatement(sql);
+            pst.setString(1, userID);
+
+            //4. EXCUTE QUERY
+            rs = pst.executeQuery();
+            //5.PROCESS
+            if (rs.next()) {
+                return true;
+            }
+
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (pst != null) {
+                pst.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+
+        return false;
+    }
+
+    public static boolean CreateUser(User user) throws SQLException {
+        Connection conn = null;
+        PreparedStatement pst = null;
+        boolean result = false;
+        try {
+            //1. OPEN CONNECTION
+            conn = utils.DBUtils.makeConnection();
+            //2. CREATE SQL Query by STRING
+            String sql = CREATE_USER;
             //3. SET SQL STATEMENT
             pst = conn.prepareStatement(sql);
 
