@@ -24,7 +24,7 @@ public class LoginServlet extends HttpServlet {
 
     private final String ERROR_PAGE = "login.jsp";
     private final String ADMIN_PAGE = "admin.jsp";
-    private final String USER_PAGE = "user.jsp";
+    private final String USER_PAGE = "ProductServlet";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -46,10 +46,11 @@ public class LoginServlet extends HttpServlet {
             HttpSession session = request.getSession();
 
             User user = UserDAO.checkLogin(username, password);
-            if (user != null && user.getRoleID().equals("AD") ) {
+            if (user != null && user.getRoleID().equals("AD")) {
                 session.setAttribute("user", user);
                 url = ADMIN_PAGE;
             } else if (user != null && user.getRoleID().equals("US")) {
+                session.setAttribute("user", user);
                 url = USER_PAGE;
             } else {
                 //SAU NÀY ChƠI JAVASCRIPT

@@ -7,6 +7,8 @@ package controller;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import dao.UserDAO;
+import dto.User;
 import dto.UserGoogle;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -27,7 +29,7 @@ import org.apache.http.client.fluent.Request;
 @WebServlet(name = "LoginGoogleServlet", urlPatterns = {"/LoginGoogleServlet"})
 public class LoginGoogleServlet extends HttpServlet {
 
-    private final String USERPAGE = "user.jsp";
+    private final String USERPAGE = "ProductServlet";
     private final String ERRORPAGE = "login.jsp";
 
     /**
@@ -42,17 +44,38 @@ public class LoginGoogleServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+
         System.out.println(request.getParameter("code")); //Code sẽ được gửi về SERVER của GOOGLE
-        String code = request.getParameter("code");
-        String accessToken = getToken(code);
-        UserGoogle user = getUserInfo(accessToken);
+        HttpSession session = request.getSession();
+        UserGoogle user = (UserGoogle) session.getAttribute("userGG");
+        String accessToken = (String) session.getAttribute("accessToken");
+
         System.out.println(user);
         String url = ERRORPAGE;
         try {
-            HttpSession session = request.getSession();
-            if (user != null) {
-                session.setAttribute("user", user);
-                url = USERPAGE ;
+            if (user != null && accessToken != null) {
+                // sử dụng accessToken và user để truy vấn API của Google
+                // ...
+                // nếu cần cập nhật thông tin user, có thể lấy thông tin mới bằng cách sử dụng accessToken  
+                user = getUserInfo(accessToken);
+                url = USERPAGE;
+            } else {
+                String code = request.getParameter("code");
+                accessToken = getToken(code);
+                user = getUserInfo(accessToken);
+
+                if (user != null) {
+                    boolean check = UserDAO.checkDupplicate(user.getId());
+                    if (check) {
+
+                    } else {
+                        UserDAO.CreateUser(new User(user.getId(), user.getGiven_name(), "1", "US"));
+
+                    }
+                    session.setAttribute("userGG", user);
+                    session.setAttribute("accessToken", accessToken);
+                    url = USERPAGE;
+                }
             }
 
         } catch (Exception e) {
