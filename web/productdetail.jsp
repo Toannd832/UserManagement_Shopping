@@ -16,7 +16,7 @@
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <link href="css/style.css" rel="stylesheet" type="text/css"/>
+        <link href="css/userpage.css" rel="stylesheet" type="text/css"/>
         <style>
             .gallery-wrap .img-big-wrap img {
                 height: 450px;
@@ -52,7 +52,8 @@
         </style>
     </head>
     <body>
-        <%--<jsp:include page="Menu.jsp"></jsp:include>--%>
+        <!--Dùng lại được của trang của nhau-->
+        <jsp:include page="Menu.jsp"></jsp:include> 
             <div class="container">
                 <div class="row">
                
@@ -116,7 +117,7 @@
                 </div>
             </div>
         </div>
-       <%--<jsp:include page="Footer.jsp"></jsp:include>--%>
+       <jsp:include page="footer.jsp"></jsp:include>
     </body>
 </html>
 

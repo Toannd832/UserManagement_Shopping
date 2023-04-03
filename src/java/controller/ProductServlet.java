@@ -42,6 +42,7 @@ public class ProductServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = FAILURE_PAGE;
         try {
+            String searchValue = request.getParameter("SEARCH_VALUE");
             //b1: get data form DAO
             ProductDAO dao = new ProductDAO();
             CategoryDAO CDAO = new CategoryDAO();

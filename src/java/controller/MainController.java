@@ -27,6 +27,7 @@ private final String UPDATE_CONTROLLER = "UpdateServlet";
 private final String CREATE_CONTROLLER = "CreateServlet";   
 private final String VIEW_PRODUCT_CATEGORY = "CategoryServlet";   
 private final String VIEW_PRODUCT_DETAIL = "ProductDetailServlet";   
+private final String SEARCH_PRODUCT = "SearchProductServlet";   
 private final String ERROR_PAGE = "login.jsp";
 
     /**
@@ -68,6 +69,8 @@ private final String ERROR_PAGE = "login.jsp";
                 url = VIEW_PRODUCT_CATEGORY;
             }else if(action.equals("viewproductdetail")){
                 url = VIEW_PRODUCT_DETAIL;
+            }else if(action.equals("search")){
+                url = SEARCH_PRODUCT;
             }
         } catch (Exception e) {
             log("SORRY SOMETHING WENT WRONG!!!");
