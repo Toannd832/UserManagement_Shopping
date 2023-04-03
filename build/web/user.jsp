@@ -37,25 +37,15 @@
 
             <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
                 <ul class="navbar-nav m-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Manager Account</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Hello Alias</a>
-                    </li>
-                    <li class="nav-item">
-                        <form action="MainController">
-                            <input type="submit" value="Logout" name="action" />
-                        </form>
-                    </li>
+
                     <li class="nav-item">
                         <p class="nav-link" >
                             <c:if test="${sessionScope.user != null}">
-                            <h4 class="nav-link" style="font-size: 16px">Hello ${sessionScope.user.getFullName()}!</h4>
-                        </c:if>
-                        <c:if test="${sessionScope.userGG.name!=null}">
-                            <a class="nav-link" style="font-size: 16px">${sessionScope.userGG.name} </a>
-                        </c:if>
+                                <a class="nav-link" style="font-size: 16px">Hello ${sessionScope.user.getFullName()}!</a>
+                            </c:if>
+                            <c:if test="${sessionScope.userGG.name!=null}">
+                                <a class="nav-link" style="font-size: 16px">Hello ${sessionScope.userGG.name} </a>
+                            </c:if>
 
                         </p>
                     </li>
@@ -75,6 +65,11 @@
                         <span class="badge badge-light">3</span>
                     </a>
                 </form>
+                <div class="logout-button">
+                    <form id="logout-form" action="MainController">
+                        <input type="submit" value="Logout" name="action" />
+                    </form>
+                </div>
             </div>
         </div>
     </nav>
@@ -104,8 +99,9 @@
                 <div class="card bg-light mb-3">
                     <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-list"></i> Categories</div>
                     <ul class="list-group category_block">
+                        <!--Nhấn vào Category nào thì chỉ hiện ra sản phẩm của Category đó thôi-->
                         <c:forEach items="${LISTC}" var="o">
-                            <li class="list-group-item text-white"><a href="#">${o.cname}</a></li>
+                            <li class="list-group-item text-white ${tag == o.cid ? "active":""}"><a href="MainController?action=viewProductfollowingCategory&cid=${o.cid}">${o.cname}</a></li>
                             </c:forEach>
 
                     </ul>
@@ -128,7 +124,7 @@
                             <div class="card">
                                 <img class="card-img-top" src="${o.image}" alt="Card image cap">
                                 <div class="card-body">
-                                    <h4 class="card-title show_txt"><a href="#" title="View Product">${o.name}</a></h4>
+                                    <h4 class="card-title show_txt"><a href="MainController?action=viewproductdetail&productid=${o.id}" title="View Product">${o.name}</a></h4>
                                     <p class="card-text show_txt">${o.title}</p>
                                     <div class="row">
                                         <div class="col">
