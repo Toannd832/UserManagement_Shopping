@@ -16,6 +16,10 @@ function deletePost(event) {
 
     }
 }
+function updateSuccessfully(event) {
+  // xử lý logic cập nhật thành công
+    alert("Update Successfully");
+}
 $(document).ready(function () {
     // Activate tooltip
     $('[data-toggle="tooltip"]').tooltip();

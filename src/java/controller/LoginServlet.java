@@ -5,9 +5,14 @@
  */
 package controller;
 
+import dao.CategoryDAO;
+import dao.ProductDAO;
 import dao.UserDAO;
+import dto.Category;
 import dto.User;
+import dto.product;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -48,6 +53,22 @@ public class LoginServlet extends HttpServlet {
             User user = UserDAO.checkLogin(username, password);
             if (user != null && user.getRoleID().equals("AD")) {
                 session.setAttribute("user", user);
+               
+               String searchValue = "";
+            if (searchValue != null) {
+                request.setAttribute("list", UserDAO.findById(searchValue));
+                request.setAttribute("search", searchValue);
+            }
+            ProductDAO dao = new ProductDAO();
+            CategoryDAO CDAO = new CategoryDAO();
+
+            List<product> list = dao.getAllProduct();
+            List<Category> listCtegories = CDAO.getAllCategories();
+            if (list != null && !list.isEmpty()) {
+                request.setAttribute("LIST_PRODUCT", list);
+
+            }
+            request.setAttribute("LIST", listCtegories);
                 url = ADMIN_PAGE;
             } else if (user != null && user.getRoleID().equals("US")) {
                 session.setAttribute("user", user);

@@ -94,7 +94,7 @@
     <form action="MainController">
         Search <input type="text" name="search" value="<%= searchValue%>" />
         <input type="submit" value="Search" name="action" />
-
+        
     </form><br>
     <%
 
@@ -137,7 +137,7 @@
                 </td>    
                 <td>
 
-                    <input type="submit" value="Update" name="action" />
+                    <input onclick="updateSuccessfully(event)" type="submit" value="Update" name="action" />
                     <input type="hidden" name="userID" value="<%= o.getUserID()%>" />
                     <input type="hidden" name="search" value="<%= searchValue%>" />
 

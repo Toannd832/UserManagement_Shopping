@@ -3,10 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/toan0/OneDrive/Desktop/SWT301_PE1_SPRING23_10493729/PaperNo_1/All/New%20folder/web/login.jsp</file>
+            <file>file:/C:/Users/toan0/OneDrive/Desktop/SWT301_PE1_SPRING23_10493729/PaperNo_1/All/New%20folder/src/java/controller/AddNewProductServlet.java</file>
             <file>file:/C:/Users/toan0/OneDrive/Desktop/SWT301_PE1_SPRING23_10493729/PaperNo_1/All/New%20folder/src/java/controller/ProductServlet.java</file>
+            <file>file:/C:/Users/toan0/OneDrive/Desktop/SWT301_PE1_SPRING23_10493729/PaperNo_1/All/New%20folder/src/java/controller/SearchServlet.java</file>
+            <file>file:/C:/Users/toan0/OneDrive/Desktop/SWT301_PE1_SPRING23_10493729/PaperNo_1/All/New%20folder/web/js/admin.js</file>
             <file>file:/C:/Users/toan0/OneDrive/Desktop/SWT301_PE1_SPRING23_10493729/PaperNo_1/All/New%20folder/src/java/controller/MainController.java</file>
             <file>file:/C:/Users/toan0/OneDrive/Desktop/SWT301_PE1_SPRING23_10493729/PaperNo_1/All/New%20folder/web/user.jsp</file>
+            <file>file:/C:/Users/toan0/OneDrive/Desktop/SWT301_PE1_SPRING23_10493729/PaperNo_1/All/New%20folder/web/admin.jsp</file>
             <file>file:/C:/Users/toan0/OneDrive/Desktop/SWT301_PE1_SPRING23_10493729/PaperNo_1/All/New%20folder/src/java/controller/SearchProductServlet.java</file>
             <file>file:/C:/Users/toan0/OneDrive/Desktop/SWT301_PE1_SPRING23_10493729/PaperNo_1/All/New%20folder/src/java/dao/ProductDAO.java</file>
         </group>

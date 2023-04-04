@@ -43,8 +43,9 @@ public class SearchServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = FAIL;
 
-        String searchValue = request.getParameter("search");
+       
         try {
+             String searchValue = request.getParameter("search");
             if (searchValue != null) {
                 request.setAttribute("list", UserDAO.findById(searchValue));
                 request.setAttribute("search", searchValue);
