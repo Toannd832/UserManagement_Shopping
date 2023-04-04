@@ -197,6 +197,42 @@ public class ProductDAO {
         }
         return list;
     }
+
+    public boolean insertNewProduct(String name, String image, String price, String title, String description, int cateId, int sellID) throws SQLException, ClassNotFoundException {
+boolean flag = false;
+        try {
+            conn = DBUtils.makeConnection();
+            if (conn != null) {
+                String sql = "INSERT INTO [dbo].[product]([name],[image],[price],[title],[description],[cateID],[sell_ID]) "
+                        + "VALUES(?,?,?,?,?,?,?)";
+                pst = conn.prepareStatement(sql);
+                pst.setString(1, name);
+                pst.setString(2, image);
+                pst.setString(3, price);
+                pst.setString(4, title);
+                pst.setString(5, description);
+                pst.setInt(6, cateId);
+                pst.setInt(7, sellID);
+
+            }
+            pst.executeUpdate();
+            flag = true;
+          
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+
+            if (pst != null) {
+                pst.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+
+        return flag;
+    }
+
 //    public static void main(String[] args) {
 //        ProductDAO dao = new ProductDAO();
 //        List<product> list = dao.getAllProduct();
@@ -204,6 +240,4 @@ public class ProductDAO {
 //            System.out.println(o.toString());
 //        }
 //    }
-
-   
 }

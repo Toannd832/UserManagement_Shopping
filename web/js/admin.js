@@ -16,6 +16,29 @@ function deletePost(event) {
 
     }
 }
+$(document).ready(function () {
+    // Activate tooltip
+    $('[data-toggle="tooltip"]').tooltip();
+
+    // Select/Deselect checkboxes
+    var checkbox = $('table tbody input[type="checkbox"]');
+    $("#selectAll").click(function () {
+        if (this.checked) {
+            checkbox.each(function () {
+                this.checked = true;
+            });
+        } else {
+            checkbox.each(function () {
+                this.checked = false;
+            });
+        }
+    });
+    checkbox.click(function () {
+        if (!this.checked) {
+            $("#selectAll").prop("checked", false);
+        }
+    });
+});
 //window.addEventListener("scroll", function () {
 //    var navbar = document.querySelector(".navbar");
 //    navbar.classList.toggle("sticky", window.scrollY > 0);

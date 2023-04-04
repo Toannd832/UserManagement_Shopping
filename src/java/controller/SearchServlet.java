@@ -5,9 +5,14 @@
  */
 package controller;
 
+import dao.CategoryDAO;
+import dao.ProductDAO;
 import dao.UserDAO;
+import dto.Category;
+import dto.product;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,7 +26,8 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "SearchServlet", urlPatterns = {"/SearchServlet"})
 public class SearchServlet extends HttpServlet {
 
-    private final String ADMIN_PAGE = "admin.jsp";
+    private final String SUCCESS = "admin.jsp";
+    private final String FAIL = "admin.jsp";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,15 +41,25 @@ public class SearchServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ADMIN_PAGE;
-     
+        String url = FAIL;
+
         String searchValue = request.getParameter("search");
         try {
-            if(searchValue!=null){
-                 request.setAttribute("list",  UserDAO.findById(searchValue));
-                 request.setAttribute("search",  searchValue);
+            if (searchValue != null) {
+                request.setAttribute("list", UserDAO.findById(searchValue));
+                request.setAttribute("search", searchValue);
             }
-        
+            ProductDAO dao = new ProductDAO();
+            CategoryDAO CDAO = new CategoryDAO();
+
+            List<product> list = dao.getAllProduct();
+            List<Category> listCtegories = CDAO.getAllCategories();
+            if (list != null && !list.isEmpty()) {
+                request.setAttribute("LIST_PRODUCT", list);
+
+            }
+            request.setAttribute("LIST", listCtegories);
+            url = SUCCESS;
         } catch (Exception e) {
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
