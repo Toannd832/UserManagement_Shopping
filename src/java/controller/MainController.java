@@ -29,6 +29,7 @@ private final String VIEW_PRODUCT_CATEGORY = "CategoryServlet";
 private final String VIEW_PRODUCT_DETAIL = "ProductDetailServlet";   
 private final String SEARCH_PRODUCT = "SearchProductServlet";   
 private final String ADD_NEW_PRODUCT = "AddNewProductServlet";   
+private final String ADD_TO_CART = "CartServlet";   
 private final String ERROR_PAGE = "login.jsp";
 
     /**
@@ -74,6 +75,8 @@ private final String ERROR_PAGE = "login.jsp";
                 url = SEARCH_PRODUCT;
             }else if(action.equals("Add")){
                 url = ADD_NEW_PRODUCT;
+            }else if(action.equals("addtocart")){
+                url = ADD_TO_CART;
             }
         } catch (Exception e) {
             log("SORRY SOMETHING WENT WRONG!!!");

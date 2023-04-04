@@ -56,9 +56,9 @@
         <jsp:include page="Menu.jsp"></jsp:include> 
             <div class="container">
                 <div class="row">
-               
-                    
-                    <%--<jsp:include page="Left.jsp"></jsp:include>--%>
+
+
+                <%--<jsp:include page="Left.jsp"></jsp:include>--%>
                 <div class="col-sm-9">
                     <div class="container">
                         <div class="card">
@@ -94,19 +94,27 @@
                                                 <dl class="param param-inline">
                                                     <dt>Quantity: </dt>
                                                     <dd>
-                                                        <select class="form-control form-control-sm" style="width:70px;">
-                                                            <option> 1 </option>
-                                                            <option> 2 </option>
-                                                            <option> 3 </option>
-                                                        </select>
+
+
+                                                        <form action="MainController">
+                                                            <select name="quantity" class="form-control form-control-sm" style="width:70px;">
+                                                                <option value="1"> 1 </option>
+                                                                <option value="2"> 2 </option>
+                                                                <option value="3"> 3 </option>
+                                                            </select>           
+                                                            <input type="hidden" name="productid" value="${detail.id}"/>
                                                     </dd>
+
                                                 </dl>  <!-- item-property .// -->
                                             </div> <!-- col.// -->
 
                                         </div> <!-- row.// -->
                                         <hr>
-                                        <a href="#" class="btn btn-lg btn-primary text-uppercase"> Buy now </a>
-                                        <a href="#" class="btn btn-lg btn-outline-primary text-uppercase"> <i class="fas fa-shopping-cart"></i> Add to cart </a>
+
+                                        <button name="action" value="addtocart">
+                                            Add to cart 
+                                        </button>
+                                        </form>
                                     </article> <!-- card-body.// -->
                                 </aside> <!-- col.// -->
                             </div> <!-- row.// -->
@@ -117,7 +125,7 @@
                 </div>
             </div>
         </div>
-       <jsp:include page="footer.jsp"></jsp:include>
+        <jsp:include page="footer.jsp"></jsp:include>
     </body>
 </html>
 

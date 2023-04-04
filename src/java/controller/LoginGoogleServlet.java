@@ -58,6 +58,7 @@ public class LoginGoogleServlet extends HttpServlet {
                 // ...
                 // nếu cần cập nhật thông tin user, có thể lấy thông tin mới bằng cách sử dụng accessToken  
                 user = getUserInfo(accessToken);
+              
                 url = USERPAGE;
             } else {
                 String code = request.getParameter("code");
@@ -67,7 +68,7 @@ public class LoginGoogleServlet extends HttpServlet {
                 if (user != null) {
                     boolean check = UserDAO.checkDupplicate(user.getId());
                     if (check) {
-
+                        url = USERPAGE;
                     } else {
                         UserDAO.CreateUser(new User(user.getId(), user.getGiven_name(), "1", "US"));
 

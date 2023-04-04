@@ -30,8 +30,6 @@ public class UserGoogle {
     private String family_name;
     private String picture;
 
-    public UserGoogle(String id, String name, String email) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+   
     
 }
